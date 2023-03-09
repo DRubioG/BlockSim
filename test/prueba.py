@@ -12,6 +12,9 @@ net2 = 0#np.zeros(len(time))
 net3 = 0#np.zeros(len(time))
 
 scope1 = []
+scope2 = []
+scope3 = []
+scope4 = []
 
 def step1(x):
     return 1 * (x > 0)
@@ -42,10 +45,17 @@ while cont != len(time):
     print(net3_ant)
 
     scope1.append(net4_ant)
+    scope2.append(net3_ant)
+    scope3.append(net2_ant)
+    scope4.append(net1_ant)
 
     cont += 1
 
 
 
 plt.plot(time, scope1)
+plt.plot(time, scope2)
+plt.plot(time, scope3)
+plt.plot(time, scope4)
+plt.legend(["salida", "suma", "entrada2", "entrada1"])
 plt.show()
