@@ -2,7 +2,7 @@ import numpy as np
 import control
 import matplotlib . pyplot as plt
 # % Generating a z - transfer function of a time delay :
-Ts = 0.5
+Ts = 0.005
 Td = 0
 nd = int ( Td / Ts )
 denom_tf = np . append ([1] , np . zeros ( nd ))

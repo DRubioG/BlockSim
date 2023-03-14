@@ -11,3 +11,13 @@ net2->&scope2
 net3->&scope3
 net4->&scope4
 
+nets = {net0, net1, net2, net3}
+
+net0 = {  Input :   ,
+          Output :  ,
+          name :
+}
+
+net1 = {
+  
+}
