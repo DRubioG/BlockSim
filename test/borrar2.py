@@ -1,14 +1,3 @@
-#! /usr/bin/env python
-
-''' Polynomial long division
-
-From http://stackoverflow.com/questions/26173058/division-of-polynomials-in-python
-
-A polynomial is represented by a list of its coefficients, eg
-5*x**3 + 4*x**2 + 1 -> [1, 0, 4, 5]
-
-Modified by PM 2Ring 2014.10.03
-'''
 
 def normalize(poly):
     while poly and poly[-1] == 0:

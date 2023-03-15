@@ -2,28 +2,36 @@ import numpy as np
 from example_func import *
 import matplotlib.pyplot as plt
 
-time = np.arange(0, 10, 1)
+time_sim = 100
+Tstep = 10
+time = np.linspace(0, time_sim, Tstep)
 cont = 0
+Ts = 0.1
 
+scopes = []
 init_func()
 
-while cont != len(time):
-    #update signals
-    update_signal()
+while cont != time_sim:
 
-    #execute with new values
-    blocks_exe(cont)
+    if (cont%(Ts*Tstep))==0:
+        #update signals
+        update_signal()
 
+        #execute with new values
+        blocks_exe(cont)
+
+    # if cont == 10.0:
+    #     break
     #save the values in scopes
     scopes = scope()
 
     #update time index
-    cont+=1
+    cont+= 1
 
 var = 0
 for i in scopes:
     var += 1
-    plt.plot(time, i, label = "scope"+str(var))
+    plt.plot(i, label = "scope"+str(var))
     # plt.legend()
 
 # plt.legend(["salida", "suma", "entrada2", "entrada1"])
