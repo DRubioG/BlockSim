@@ -19,9 +19,12 @@ den = list(H_z.den[0][0])
 # num = [0, 0.0891, 0.0108, -0.0679]#0, 0.0891, 0.0108, 0.15]
 # den = [1, -2.2885, 1.8460, -0.5255]#1, -0, 0, 1]
 
+num = [0.1867 , 0.0178, -0.1689]
+den=[1, -1.9244, 1.2400, -0.2800]
+
 values = []
 
-x = np.linspace(0, 1, 10000)
+x = np.linspace(0, 1, 30)
 dv_ant = 0
 
 
@@ -44,7 +47,7 @@ def discrete_value(num, den, dv_ant):
         
     return num, den, dv_ant
 
-ramp= (np.array(x)*1)[:-1]      #np.sin((np.array(x)*100))[:-1]
+ramp= (np.array(x)*1)[:-1] /(np.array(x)*1)[:-1]     #np.sin((np.array(x)*100))[:-1]
 r=[]
 error = []
 for i in range(len(x)-1):
