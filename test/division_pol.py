@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 import control
 import array
 
-a =  [ 1, 0]
-b = [2, 1, 1]
-Ts = 1
+a =  [ 1,2]
+b = [2, 1]
+Ts = 0.1
 
 H_s = control.tf(a,b)
 H_z = control.sample_system(H_s, Ts)
@@ -19,12 +19,12 @@ den = list(H_z.den[0][0])
 # num = [0, 0.0891, 0.0108, -0.0679]#0, 0.0891, 0.0108, 0.15]
 # den = [1, -2.2885, 1.8460, -0.5255]#1, -0, 0, 1]
 
-num = [0, 0.515, -0.1452, -0.2963, 0.0528]#         0.1867 , 0.0178, -0.1689]
-den=[1, -1.8528, 1.5906, -0.6642, 0.0528]#                -1.9244, 1.2400, -0.2800]
+# num = [0, 0.515, -0.1452, -0.2963, 0.0528]#         0.1867 , 0.0178, -0.1689]
+# den=[1, -1.8528, 1.5906, -0.6642, 0.0528]#                -1.9244, 1.2400, -0.2800]
 
 values = []
 
-x = np.linspace(0, 1, 30)
+x = np.linspace(0, 10, 300)
 dv_ant = 0
 
 
@@ -47,7 +47,7 @@ def discrete_value(num, den, dv_ant):
         
     return num, den, dv_ant
 
-ramp= np.sin((np.array(x)*100))[:-1]
+ramp= np.array(x)*100 #np.sin((np.array(x)*100))[:-1]
 r=[]
 error = []
 for i in range(len(x)-1):

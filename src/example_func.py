@@ -43,7 +43,7 @@ def blocks_exe(cont):
     net3_ant = add(net1, net2)
     net4_ant = res(net3, net6)
     net5_ant = gain(net4, 2)
-    net6_ant = gain(net5, 0.7)
+    net6_ant = gain(net5, 0.1)
     # net5_ant = conv(net4, block1)
     # net6_ant = conv(net5, block1)
     net7_ant = conv(net6, block1)
