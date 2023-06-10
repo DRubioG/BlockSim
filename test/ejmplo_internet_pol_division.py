@@ -48,8 +48,8 @@ def test(num, den):
 
 
 def main():
-    num = [10,5]
-    den = [-1.2,0.2]
+    num = [5]
+    den = [1,1]
     test(num, den)
 
     # num = [5, 16, 10, 22, 7, 11, 1, 3]

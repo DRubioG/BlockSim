@@ -2,7 +2,7 @@ import numpy as np
 from example_func import *
 import matplotlib.pyplot as plt
 
-time_sim = 100
+time_sim = 10
 Tstep = 10
 time = np.linspace(0, time_sim, Tstep)
 cont = 0
@@ -32,9 +32,7 @@ var = 0
 for i in scopes:
     var += 1
     plt.plot(i, label = "scope"+str(var))
-    # plt.legend()
 
-# plt.legend(["salida", "suma", "entrada2", "entrada1"])
 plt.legend()
 plt.grid()
 plt.show()
