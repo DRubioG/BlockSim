@@ -2,7 +2,7 @@ import numpy as np
 from example_func import *
 import matplotlib.pyplot as plt
 
-time_sim = 100
+time_sim = 50
 Tstep = 10
 time = np.linspace(0, time_sim, Tstep)
 cont = 0

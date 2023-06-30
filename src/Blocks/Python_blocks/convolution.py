@@ -1,12 +1,12 @@
 import numpy as np
 
-def init_conv(lon):
-    global input
-    input = np.zeros(lon)
+# def init_conv(lon):
+#     global input
+#     input = np.zeros(lon)
 
 
-def conv(value, block): 
-    global input
+def conv(value, block, input): 
+    # global input
 
     input = np.insert(input, 0, value)
     input = np.delete(input, -1)
@@ -23,4 +23,4 @@ def conv(value, block):
     c = input*block
     suma = sum(c)
     
-    return suma
+    return suma, input

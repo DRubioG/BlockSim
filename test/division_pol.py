@@ -3,11 +3,12 @@ import matplotlib.pyplot as plt
 import control
 import array
 
-a =  [ 1,2]
-b = [2, 1]
+a = [10, 20]#9.1, 73.5, 125]#1]#6.3223, 17.9995881, 12.811206830175] #1.3223, 18, 12.811]# [ 10, 4]
+b = [1, 10, 24]#17, -30]#1, 6, 5] #6, 11.3223, 18, 12.811]#[1,4,4]
 Ts = 0.1
 
 H_s = control.tf(a,b)
+# pt = control.c2d(H_s, Ts)
 H_z = control.sample_system(H_s, Ts)
 
 num = list(H_z.num[0][0])
@@ -24,7 +25,7 @@ den = list(H_z.den[0][0])
 
 values = []
 
-x = np.linspace(0, 10, 300)
+x = np.linspace(0, 10, 100)
 dv_ant = 0
 
 
@@ -36,7 +37,7 @@ def discrete_value(num, den, dv_ant):
         pass
     else:
         dv = num[0]/den[0]
-        dv_ant += dv
+        dv_ant = dv
 
         den_mul = dv*np.array(den)
         num = num-den_mul
@@ -47,7 +48,7 @@ def discrete_value(num, den, dv_ant):
         
     return num, den, dv_ant
 
-ramp= np.array(x)*100 #np.sin((np.array(x)*100))[:-1]
+ramp= np.ones(len(x)) #np.sin((np.array(x)*100))[:-1]  #np.array(x)*100 #np.ones(len(x)) #
 r=[]
 error = []
 for i in range(len(x)-1):
@@ -89,4 +90,6 @@ plt.plot(r)#, 'o')
 # plt.ylim([-1,1])
 # plt.xlim([0,40])
 plt.legend(["rampa", "error", "coeficientes", "salida"])#, "valores de Z"])
+plt.figure()
+plt.plot(values)
 plt.show()
