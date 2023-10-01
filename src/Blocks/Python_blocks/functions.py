@@ -15,8 +15,8 @@ def gain(x, G):
     return G*x
 
 
-def step(x, t):
-    return 1 * (x > t)
+def step(value, x, t):
+    return value * (x > t)
 
 
 def add(a, b):

@@ -12,7 +12,7 @@ time = np.arange(0, time_sim, Ts)
 scopes = []
 init_func()
 
-while cont < float(time_sim):
+while cont < time_sim: #float(time_sim):
 
     # if cont == time_sim:#     (cont%(Ts*Tstep))==0:
     #update signals
@@ -26,7 +26,7 @@ while cont < float(time_sim):
 
     #update time index
     cont += Ts
-    cont = round(cont, 1)
+    # cont = round(cont, 1)
     
 
 var = 0

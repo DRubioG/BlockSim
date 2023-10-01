@@ -40,7 +40,7 @@ def update_signal():
 def blocks_exe(cont):
     global net1_ant, net2_ant, net3_ant, net4_ant, net5_ant, net6_ant, net7_ant
     global input1, input2
-    net1_ant = step(cont, 0)
+    net1_ant = step(5, cont, 0)
     # net2_ant = step(cont, 3)
     # net3_ant = add(net1, net2)
     # net4_ant = res(net3, net6)
@@ -55,7 +55,7 @@ def blocks_exe(cont):
     net2_ant = res(net1, net4)
     print(cont)
     net3_ant, input1 = conv(net2, block1, input1)
-    net4_ant, input2 = conv(net3, block2, input2)
+    # net4_ant, input2 = conv(net3, block2, input2)
 
 def scope(): 
     scope1.append(net1_ant)

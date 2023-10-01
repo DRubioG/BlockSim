@@ -23,10 +23,10 @@ float net7 = 0;
 float input1[100];
 float input2[100];
 
-// struct Conv{
-//     float value;
-//     float input1;
-// };
+struct Conv{
+    float value;
+    float input1[100];
+};
 
 float value1;
 float value2;
