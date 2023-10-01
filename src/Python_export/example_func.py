@@ -1,7 +1,4 @@
-from Blocks.Python_blocks.add import *
-from Blocks.Python_blocks.gain import *
-from Blocks.Python_blocks.step import *
-from Blocks.Python_blocks.convolution import *
+from Blocks.Python_blocks.functions import *
 from constants import *
 
 
@@ -56,6 +53,7 @@ def blocks_exe(cont):
     # # net3_ant = add(net1 ,net2)
     # # net4_ant = gain(net3, 3)
     net2_ant = res(net1, net4)
+    print(cont)
     net3_ant, input1 = conv(net2, block1, input1)
     net4_ant, input2 = conv(net3, block2, input2)
 

@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "example_func.h": "c",
+        "constants.h": "c",
+        "definitions.h": "c"
+    }
+}
