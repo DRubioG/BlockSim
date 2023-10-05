@@ -3,7 +3,7 @@ Duration = 10 ;
 
 nets = {net0, net1, net2, net3, net4, net5}
 
-blocks = {step1, sum1, tfs1, tfs2, tfs3}
+blocks = {step1, sum1, sum2, tfs1, tfs2, tfs3}
 
 scopes = {net0, net1, net2, net3, net4, net5}
 

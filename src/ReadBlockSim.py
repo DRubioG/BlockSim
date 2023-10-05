@@ -9,12 +9,22 @@ class ReadBlockSim():
 
 
     def read(self):
-        read_file = open(self.file, 'r')
-        file_change = self.change_file2list()
-        self.nets, self.blocks, self.scopes = self.get_net_blocks_scopes()
-        
+        self.read_file = open(self.file, 'r')
+        self.file_change = self.change_file2list()
+        nets, blocks, scopes = self.get_net_blocks_scopes()
+        self.nets = self.check_components(nets, nets=1)
+        self.blocks = self.check_components(blocks, blocks=1)
+        duration, Ts = self.get_times()
+        return self.nets, self.blocks, self.scopes, duration, Ts
 
 
+    def get_times(self):
+        for line in self.file_change:
+            if line.find("Duration = ") != -1:
+                duration = float(line[10:].replace(";", "").strip())
+            if line.find("Ts = ") != -1:
+                Ts = float(line[4:].replace(";", "").strip())
+        return duration, Ts
 
 
     def list_func(self, line):
@@ -25,24 +35,24 @@ class ReadBlockSim():
         return list
 
 
-    def get_net_blocks_scopes(self, file):
-        for i in file:
+    def get_net_blocks_scopes(self):
+        for i in self.file_change:
             if i.find("nets = ") != -1:
-                nets = list_func(i)
+                nets = self.list_func(i)
             # get blocks
             if i.find("blocks = ") != -1:
-                blocks = list_func(i)
+                blocks = self.list_func(i)
             if i.find("scopes = ") != -1:
-                scopes = list_func(i)
+                scopes = self.list_func(i)
         return nets, blocks, scopes
 
 
-    def check_components(self, file, list_components, nets=0, blocks=0):
+    def check_components(self, list_components, nets=0, blocks=0):
         list_output = []
         for component in list_components:
             flag = 0
             list = [component]
-            for i in file:
+            for i in self.file_change:
                 i = i.replace(" ", "")
                 i = i.replace(";", "")
                 if component == i[:len(component)]:
@@ -56,9 +66,9 @@ class ReadBlockSim():
                         list.append(i)
         
         if nets == 1:
-            list_output = generate_netlist(list_output)
+            list_output = self.generate_netlist(list_output)
         elif blocks == 1:
-            list_output = generate_blocklist(list_output)
+            list_output = self.generate_blocklist(list_output)
         return list_output
 
 
@@ -83,13 +93,61 @@ class ReadBlockSim():
 
 
     def generate_blocklist(self, block_list):
-        
-        return
+        lista = []
+        for block in block_list:
+            lista.append(self.search_type(block)[0])
+        return lista
 
 
     def change_file2list(self):
-        lines = self.file.readlines()
+        lines = self.read_file.readlines()
         lines_out = []
         for r in lines:
             lines_out.append(r.replace("\n", ""))
         return lines_out
+    
+
+    def search_type(self, block):
+        output = []
+        block_type = block[1][5:]
+        id = block[0]
+        num = []
+        den = []
+        values = []
+        if block_type == "tfs":
+            num.append(self.split_values(block[2][4:], floating=1))
+            if len(num)==1:
+                if type(num[0]) is list:
+                    num = num[0]
+            den.append(self.split_values(block[3][4:], floating=1))
+            if len(den)==1:
+                if type(den[0]) is list:
+                    den = den[0]
+            output.append([id, block_type, num, den])
+        elif block_type == "step":
+            value = float(block[2][6:])
+            time = float(block[3][5:])
+            output.append([id, block_type, value, time])
+        elif block_type == "sum":
+            inputs = int(block[2][7:])
+            values.append(self.split_values(block[3][6:]))
+            output.append([id, block_type, inputs, values[0]])
+            
+        return output
+    
+    def split_values(self, value, floating=0):
+        value_list = []
+        if value.find(",") != -1:
+            val_pre = value.split(",")
+            for n in val_pre:
+                if floating == 1:
+                    value_list.append(float(n))
+                else:
+                    value_list.append(n)
+            return value_list
+        else:
+            if floating == 1:
+                value_list.append(float(value))
+            else:
+                value_list.append(value)
+            return value_list[0]
