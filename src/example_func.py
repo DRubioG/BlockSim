@@ -24,7 +24,6 @@ def init_func():
     input2 = np.zeros(len(block2))
 
 
-    # init_conv(len(block1))
 
 def update_signal():
     global net1, net2, net3, net4, net5, net6, net7

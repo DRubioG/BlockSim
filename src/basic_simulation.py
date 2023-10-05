@@ -3,7 +3,6 @@ from example_func import *
 import matplotlib.pyplot as plt
 
 time_sim = 1
-Tstep = 10
 cont = 0.0
 Ts = 0.1
 time = np.arange(0, time_sim, Ts)
@@ -12,9 +11,7 @@ time = np.arange(0, time_sim, Ts)
 scopes = []
 init_func()
 
-while cont < time_sim: #float(time_sim):
-
-    # if cont == time_sim:#     (cont%(Ts*Tstep))==0:
+while cont < time_sim: 
     #update signals
     update_signal()
 
@@ -26,7 +23,6 @@ while cont < time_sim: #float(time_sim):
 
     #update time index
     cont += Ts
-    # cont = round(cont, 1)
     
 
 var = 0
