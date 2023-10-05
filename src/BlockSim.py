@@ -19,6 +19,7 @@ class BlockSim():
         self.nets, self.blocks, self.scopes, self.duration, self.Ts = read_file.read()
 
         # self.generate_file()
+        self.samples = int(self.duration/self.Ts)
         self.sz_domain_blocks()
 
         # python_file = ExportPython(self.file)
@@ -42,9 +43,10 @@ class BlockSim():
             den = list(H_z.den[0][0])
         
         dv_ant = 0
-        for i in range(50):
+        for i in range(self.samples):
             num, den, dv_ant = self.discrete_value(num, den, dv_ant)
             self.constants.append(dv_ant)
+        print()
 
 
     def discrete_value(self, num, den, dv_ant):
