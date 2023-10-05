@@ -1,12 +1,18 @@
 
 
 class ExportPython():
+    """
+    This class generates the Python file for the BSIM file
+    """
     def __init__(self, file):
         self.file = file
 
 
     
     def generate_init_func(self, nets):
+        """
+        This method generates init_func function
+        """
         output = "def init_func():\n"
         if nets:
             output += "\tglobal "
@@ -36,6 +42,9 @@ class ExportPython():
 
 
     def generate_update_signal(self, nets):
+        """
+        This method generates the update signal function
+        """
         output = "def update_signal():\n"
         if nets:
             output += "\tglobal "
@@ -52,6 +61,9 @@ class ExportPython():
 
 
     def generate_block_exe(self, nets, blocks):
+        """
+        This method generates the block exe function
+        """
         output = "def block_exe(time):\n"
         if nets:
             output += "\tglobal "
@@ -66,6 +78,9 @@ class ExportPython():
 
 
     def generate_scope(self, nets):
+        """
+        This method generates the scope function
+        """
         output = "def scope():\n"
         if nets:
             cont = 1
@@ -76,6 +91,9 @@ class ExportPython():
 
 
     def generate_file(self, nets):
+        """
+        This method generates the Python file
+        """
         file = open("controlloop_functions.py", "w")
         output = "from Blocks.Python_blocks.functions import *\nfrom constants import *\n\n"
         output += generate_init_func(nets) + "\n"
