@@ -28,8 +28,8 @@ class BlockSim():
         self.samples = int(self.duration/self.Ts)
         self.sz_domain_blocks()
 
-        # python_file = ExportPython(self.file)
-        # python_file.generate_file()
+        python_file = ExportPython(self.file)
+        python_file.generate_file(self.nets, self.blocks, self.scopes, self.constants, self.duration, self.Ts)
 
 
     def sz_domain_blocks(self):

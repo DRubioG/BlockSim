@@ -1,3 +1,4 @@
+from Blocks import *
 
 
 class ExportPython():
@@ -8,8 +9,94 @@ class ExportPython():
         self.file = file
 
 
+    def generate_file(self, nets, blocks, scopes, constants, duration, Ts):
+        """
+        This method generates the Python file
+        """
+        self.generate_file_constants(constants)
+        self.generate_main(duration, Ts)
+        self.block_exe_file(nets, blocks, scopes)
+        # self.functions_export()
+
+        
+
+
+    def generate_file_constants(self, constants_list):
+        if constants_list:
+            file_constants = open("constant_test.py", "w")
+            output = "import numpy as np\n\n"
+            cont = 0
+            
+            for constant_list in constants_list:
+                output += "block" + str(cont) + " = np.array([" 
+                cont2 = 0
+                for constant in constant_list:
+                    output += str(constant)
+                    if cont2 < len(constant_list)-1:
+                        output += " ,"
+                    else:
+                        output += "])\n"
+                    cont2 += 1
+                cont += 1
+
+            file_constants.write(output)
+            file_constants.close()
+
+
+
+    def generate_main(self, duration, Ts):
+        output = """import numpy as np
+from example_func import *
+import matplotlib.pyplot as plt
+
+time_sim = """ + str(duration) + """
+time = 0.0
+Ts = """ + str(Ts) +  """
+time = np.arange(0, time_sim, Ts)
+
+
+scopes = []
+init_func()
+
+while time < time_sim: 
+    #update signals
+    update_signal()
+
+    #execute with new values
+    blocks_exe(time)
+
+    #save the values in scopes
+    scopes = scope()
+
+    #update time index
+    time += Ts
     
-    def generate_init_func(self, nets):
+
+var = 0
+for i in scopes:
+    var += 1
+    plt.plot(time, i, label = "scope"+str(var))
+
+plt.legend()
+plt.grid()
+plt.show()"""
+        file_main = open("main_test.py", "w")
+        file_main.write(output)
+        file_main.close()
+
+
+    def block_exe_file(self, nets, blocks, scopes):
+        file = open("controlloop_functions.py", "w")
+        output = "from Blocks.Python_blocks.functions import *\nfrom constants import *\n\n"
+        output += self.generate_init_func(nets, scopes) + "\n"
+        output += self.generate_update_signal(nets) + "\n"
+        output += self.generate_block_exe(nets, blocks) + "\n"
+        output += self.generate_scope(nets)
+        file.write(output)
+        file.close()
+
+
+    def generate_init_func(self, nets, scopes):
         """
         This method generates init_func function
         """
@@ -74,6 +161,15 @@ class ExportPython():
                 if cont < len(nets):
                     output += ", "
             output += "\n"
+        
+        if blocks:
+            for block in blocks:
+                if block[1] == "step":
+                    for net in nets:
+                        if net[1] == block[0]:
+                            output += net[1] + "_ant = " + block[1] + "(" + str(block[2]) + ", time, " + str(block[3]) + ")"
+                            print()
+
         return output
 
 
@@ -90,15 +186,4 @@ class ExportPython():
         return output
 
 
-    def generate_file(self, nets):
-        """
-        This method generates the Python file
-        """
-        file = open("controlloop_functions.py", "w")
-        output = "from Blocks.Python_blocks.functions import *\nfrom constants import *\n\n"
-        output += generate_init_func(nets) + "\n"
-        output += generate_update_signal(nets) + "\n"
-        output += generate_block_exe(nets, blocks) + "\n"
-        output += generate_scope(nets)
-        file.write(output)
-        file.close()
+    

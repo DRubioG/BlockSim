@@ -1,4 +1,4 @@
-
+from Blocks import *
 
 class ReadBlockSim():
     def __init__(self, file):
@@ -15,7 +15,7 @@ class ReadBlockSim():
         self.nets = self.check_components(nets, nets=1)
         self.blocks = self.check_components(blocks, blocks=1)
         duration, Ts = self.get_times()
-        return self.nets, self.blocks, self.scopes, duration, Ts
+        return self.nets, self.blocks, scopes, duration, Ts
 
 
     def get_times(self):
