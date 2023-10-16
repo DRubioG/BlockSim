@@ -16,7 +16,6 @@ class ExportPython():
         self.generate_file_constants(constants)
         self.generate_main(duration, Ts)
         self.block_exe_file(nets, blocks, scopes)
-        # self.functions_export()
 
         
 
@@ -46,13 +45,13 @@ class ExportPython():
 
     def generate_main(self, duration, Ts):
         output = """import numpy as np
-from example_func import *
+from controlloop_functions import *
 import matplotlib.pyplot as plt
 
 time_sim = """ + str(duration) + """
 time = 0.0
 Ts = """ + str(Ts) +  """
-time = np.arange(0, time_sim, Ts)
+time_axis = np.arange(0, time_sim, Ts)
 
 
 scopes = []
@@ -63,7 +62,7 @@ while time < time_sim:
     update_signal()
 
     #execute with new values
-    blocks_exe(time)
+    block_exe(time)
 
     #save the values in scopes
     scopes = scope()
@@ -75,7 +74,7 @@ while time < time_sim:
 var = 0
 for i in scopes:
     var += 1
-    plt.plot(time, i, label = "scope"+str(var))
+    plt.plot(time_axis, i, label = "scope"+str(var))
 
 plt.legend()
 plt.grid()
@@ -86,9 +85,12 @@ plt.show()"""
 
 
     def block_exe_file(self, nets, blocks, scopes):
+        """
+        This method creates the Python file
+        """
         file = open("controlloop_functions.py", "w")
-        output = "from Blocks.Python_blocks.functions import *\nfrom constants import *\n\n"
-        output += self.generate_init_func(nets, scopes) + "\n"
+        output = "from functions import *\nfrom constant_test import *\n\n"
+        output += self.generate_init_func(nets, scopes, blocks) + "\n"
         output += self.generate_update_signal(nets) + "\n"
         output += self.generate_block_exe(nets, blocks) + "\n"
         output += self.generate_scope(nets)
@@ -96,7 +98,7 @@ plt.show()"""
         file.close()
 
 
-    def generate_init_func(self, nets, scopes):
+    def generate_init_func(self, nets, scopes, blocks):
         """
         This method generates init_func function
         """
@@ -125,6 +127,21 @@ plt.show()"""
             for scope in scopes:
                 output += "\t" + "scope" + str(cont+1) + " = []\n"
                 cont += 1
+        if blocks:
+            glob = "\tglobal "
+            out = ""
+            cont = 0
+            flag = 0
+            for block in blocks:
+                if block[1] == "tfs":
+                    if flag == 0:
+                        glob += "input" + str(cont)
+                        flag = 1
+                    else:
+                        glob += ", input" + str(cont)
+                    out += "\n\tinput"+ str(cont) + " = np.zeros(len(block" + str(cont) + "))"
+                    cont += 1
+            output += glob + out + "\n"
         return output
 
 
@@ -152,6 +169,19 @@ plt.show()"""
         This method generates the block exe function
         """
         output = "def block_exe(time):\n"
+        if blocks:
+            glob = "\tglobal "
+            cont = 0
+            flag = 0
+            for block in blocks:
+                if block[1] == "tfs":
+                    if flag == 0:
+                        glob += "input" + str(cont)
+                        flag = 1
+                    else:
+                        glob += ", input" + str(cont)
+                    cont += 1
+            output += glob + "\n"
         if nets:
             output += "\tglobal "
             cont = 0
@@ -160,15 +190,12 @@ plt.show()"""
                 cont += 1
                 if cont < len(nets):
                     output += ", "
-            output += "\n"
+            output += "\n\t"
         
         if blocks:
+            bck = Blocks()
             for block in blocks:
-                if block[1] == "step":
-                    for net in nets:
-                        if net[1] == block[0]:
-                            output += net[1] + "_ant = " + block[1] + "(" + str(block[2]) + ", time, " + str(block[3]) + ")"
-                            print()
+                output += bck.writeBlocks(block, nets) + "\n\t"
 
         return output
 
@@ -178,11 +205,21 @@ plt.show()"""
         This method generates the scope function
         """
         output = "def scope():\n"
+        ret = ""
         if nets:
             cont = 1
+            flag = 0
             for net in nets:
                 output += "\tscope" + str(cont) + ".append(" + net[0] + "_ant)\n"
+                if flag == 0:
+                    ret += "\treturn "
+                    flag = 1
+                else: 
+                    ret += ", "
+                ret += "scope" + str(cont)
                 cont += 1
+            
+            output += ret
         return output
 
 

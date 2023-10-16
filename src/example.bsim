@@ -43,7 +43,7 @@ net5 = {  Input : tfs3  ;
 
 step1 = { type : step ;
           value : 1 ; 
-          time : 0          
+          time : 0           
 }
 
 sum1 = { type : sum ;

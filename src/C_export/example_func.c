@@ -23,13 +23,13 @@ float net7 = 0;
 float input1[100];
 float input2[100];
 
-struct Conv{
-    float value;
-    float input1[100];
-};
+// struct Conv{
+//     float value;
+//     float input1[100];
+// };
 
-float value1;
-float value2;
+// float value1;
+// float value2;
 
 void net_update(){
     net1 = net1_ant;

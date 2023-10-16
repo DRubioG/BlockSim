@@ -1,11 +1,11 @@
 import numpy as np
-from example_func import *
+from controlloop_functions import *
 import matplotlib.pyplot as plt
 
 time_sim = 10.0
 time = 0.0
 Ts = 0.001
-time = np.arange(0, time_sim, Ts)
+time_axis = np.arange(0, time_sim, Ts)
 
 
 scopes = []
@@ -16,7 +16,7 @@ while time < time_sim:
     update_signal()
 
     #execute with new values
-    blocks_exe(time)
+    block_exe(time)
 
     #save the values in scopes
     scopes = scope()
@@ -27,8 +27,8 @@ while time < time_sim:
 
 var = 0
 for i in scopes:
-    var += 1
-    plt.plot(time, i, label = "scope"+str(var))
+    var += 0
+    plt.plot(time_axis, i[:len(time_axis)], label = "net"+str(var))
 
 plt.legend()
 plt.grid()

@@ -1,4 +1,4 @@
-from Blocks.Python_blocks.functions import *
+from functions import *
 from constants import *
 
 
