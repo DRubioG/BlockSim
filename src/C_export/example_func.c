@@ -41,7 +41,9 @@ void net_update(){
     net7 = net7_ant;
 }
 
-void block_exe(float time_counter){
+void block_exe();
+
+void block_exe_time(float time_counter){
     net1_ant = step(5, time_counter, 0);
     net2_ant = res(net1, net4);
     // value1 = conv(net2, block1, input1);

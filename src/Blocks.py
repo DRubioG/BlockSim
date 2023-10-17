@@ -1,8 +1,9 @@
 
 
 class Blocks():
-    def __init__(self) -> None:
+    def __init__(self, type_blocks = "Python"):
         self.cont = 0
+        self.type_blocks = type_blocks
 
 
     def readBlocks(self):
@@ -58,7 +59,9 @@ class Blocks():
                 if net[1] == block[0]+"[2]":
                     output = net[0] + "_ant = " + output 
                     return output
-            
+
+
+# TFS: this conditional creates the tfs function
         elif block[1] == "tfs":
             for net in nets:
                 if net[1] == block[0]:

@@ -32,7 +32,7 @@ class ExportPython():
                 for constant in constant_list:
                     output += str(constant)
                     if cont2 < len(constant_list)-1:
-                        output += " ,"
+                        output += ", "
                     else:
                         output += "])\n"
                     cont2 += 1
@@ -79,6 +79,7 @@ for i in scopes:
 plt.legend()
 plt.grid()
 plt.show()"""
+
         file_main = open("main_test.py", "w")
         file_main.write(output)
         file_main.close()

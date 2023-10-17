@@ -1,5 +1,6 @@
 from ReadBlockSim import *
 from ExportPython import *
+from ExportC import *
 import control
 import numpy as np
 
@@ -28,8 +29,10 @@ class BlockSim():
         self.samples = int(self.duration/self.Ts)
         self.sz_domain_blocks()
 
-        python_file = ExportPython(self.file)
-        python_file.generate_file(self.nets, self.blocks, self.scopes, self.constants, self.duration, self.Ts)
+        # python_file = ExportPython(self.file)
+        # python_file.generate_file(self.nets, self.blocks, self.scopes, self.constants, self.duration, self.Ts)
+        python_file = ExportC(self.file)
+        python_file.generate_file(self.nets, self.blocks, self.constants, self.Ts)
 
 
     def sz_domain_blocks(self):
