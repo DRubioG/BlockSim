@@ -19,10 +19,6 @@ def step(value, x, t):
     return value * (x > t)
 
 
-def ramp(inc, pre_value):
-    return pre_value+inc
-
-
 def add(a, b):
     return a-b
 

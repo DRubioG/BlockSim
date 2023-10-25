@@ -19,21 +19,9 @@ def step(value, x, t):
     return value * (x > t)
 
 
-def ramp(inc, pre_value):
-    return pre_value+inc
-
-
 def add(a, b):
     return a-b
 
-
-def saturation(value, limit):
-    if value >= limit and limit > 0:
-        return limit
-    elif value <= limit and limit < 0:
-        return limit
-    else:
-        return value
 
 # def sum(a, b):
 #     return a-b

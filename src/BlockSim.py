@@ -1,6 +1,6 @@
 from ReadBlockSim import *
-from ExportPython import *
-from ExportC import *
+from Export.ExportPython import *
+from Export.ExportC import *
 import control
 import numpy as np
 
@@ -9,14 +9,14 @@ class BlockSim():
     """
     This is the main class of the project, it uses the other different classes for working
     """
-    def __init__(self, file):
+    def __init__(self, file, tipo="Python"):
         self.file = file
         self.nets = []
         self.blocks = []
         self.scopes = []
         self.constants = []
+        self.tipo = tipo
         self.generate()
-
 
 
     def generate(self):
@@ -29,10 +29,12 @@ class BlockSim():
         self.samples = int(self.duration/self.Ts)
         self.sz_domain_blocks()
 
-        # python_file = ExportPython(self.file)
-        # python_file.generate_file(self.nets, self.blocks, self.scopes, self.constants, self.duration, self.Ts)
-        python_file = ExportC(self.file)
-        python_file.generate_file(self.nets, self.blocks, self.constants, self.Ts)
+        if self.tipo == "Python":
+            python_file = ExportPython(self.file)
+            python_file.generate_file(self.nets, self.blocks, self.scopes, self.constants, self.duration, self.Ts)
+        elif self.tipo == "C":
+            python_file = ExportC(self.file)
+            python_file.generate_file(self.nets, self.blocks, self.constants, self.Ts)
 
 
     def sz_domain_blocks(self):

@@ -128,7 +128,7 @@ class ReadBlockSim():
             value = float(block[2][6:])
             time = float(block[3][5:])
             output.append([id, block_type, value, time])
-        elif block_type == "sum":
+        elif block_type == "add":
             inputs = int(block[2][7:])
             values.append(self.split_values(block[3][6:]))
             output.append([id, block_type, inputs, values[0]])

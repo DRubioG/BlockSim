@@ -1,0 +1,57 @@
+Ts = 1e-3 ;
+Duration = 6 ;
+
+nets = {net1, net2, net3, net4}
+
+blocks = {step1, add1, tfs1, tfs2}
+
+scopes = {net1, net2, net3, net4}
+
+## nets
+
+
+net1 = {  Input : step1 ;
+          Output : add1[0] ;
+          name : "net1"
+}
+
+net2 = {  Input : add1[2] ;
+          Output : tfs1 ;
+          name : "net2"
+}
+
+net3 = {  Input : tfs1 ;
+          Output : tfs2 ;
+          name : "net3"
+}
+
+net4 = {  Input : tfs2  ;
+          Output : add1[1] ;
+          name : "net4"
+}
+
+
+## blocks
+
+step1 = { type : step ;
+          value : 1 ; 
+          time : 1           
+}
+
+add1 = { type : add ;
+         inputs : 2 ;
+         value : p, n
+}
+
+tfs1 = { type : tfs ;
+         num : 41.7,183.897 ;
+         den : 1,18.4
+}
+
+tfs2 = { type : tfs ;
+         num : 4 ;
+         den : 1,2,0 
+}
+
+
+
