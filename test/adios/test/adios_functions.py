@@ -38,7 +38,7 @@ def block_exe(time):
 	net3_ant = add(net2, net4)
 	net2_ant, input0 = conv(net1, block0, input0)
 	net4_ant, input1 = conv(net3, block1, input1)
-	# net5_ant, input2 = conv(net4, block2, input2)
+	net5_ant, input2 = conv(net4, block2, input2)
 	
 def scope():
 	scope1.append(net0_ant)

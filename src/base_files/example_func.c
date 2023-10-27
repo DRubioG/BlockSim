@@ -1,5 +1,5 @@
 // #include "example_func.h"
-#include "../Blocks/C_blocks/functions.c"
+#include "functions.c"
 // #include "definitions.h"
 #include "constants.h"
 

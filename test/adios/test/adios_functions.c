@@ -29,15 +29,11 @@ void net_update(){
 	net5 = net5_ant;
 }
 
-void block_exe(float time){
+void block_exe(){
 	net0_ant = step(1.0, time, 0.0);
 	net1_ant = add(net0, net5);
 	net3_ant = add(net2, net4);
-	
-	net2_ant = convolution(net1, block0, input0, 1000);
-	// net4_ant = convolution(net3, block1, input1, 1000);
-	// net5_ant = convolution(net4, block2, input2, 1000);
-	printf("\nnet4: %lf, ", net4_ant);
-	printf("\nnet3: %lf, ", net3_ant);
-	printf("\nnet2: %lf, ", net2_ant);
+	net2_ant = convolution(net1, block0, input0);
+	net4_ant = convolution(net3, block1, input1);
+	net5_ant = convolution(net4, block2, input2);
 }

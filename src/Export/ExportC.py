@@ -82,7 +82,7 @@ int main(){
 
         output += self.generate_init_func(nets, constants)
         output += self.generate_update_signal(nets)
-        output += self.generate_block_exe(nets, blocks)
+        output += self.generate_block_exe(nets, blocks, constants)
         file.write(output)
         file.close()
 
@@ -118,12 +118,12 @@ int main(){
         return output
     
 
-    def generate_block_exe(self, nets, blocks):
+    def generate_block_exe(self, nets, blocks, constants):
         output = "\n\nvoid block_exe(){"
         if blocks:
             bck = Blocks("C")
             for block in blocks:
-                output += "\n\t" + bck.writeBlocks(block, nets) 
+                output += "\n\t" + bck.writeBlocks(block, nets, constants) 
 
         output += "\n}"
 
@@ -131,4 +131,4 @@ int main(){
     
     
     def copy_func(self):
-        shutil.copy("./Blocks/C_blocks/functions.c", self.path)
+        shutil.copy("./Blocks/C_functions/functions.c", self.path)

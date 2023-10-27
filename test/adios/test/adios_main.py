@@ -1,10 +1,10 @@
 import numpy as np
-from prueba_2_functions import *
+from adios_functions import *
 import matplotlib.pyplot as plt
 
-time_sim = 6.0
+time_sim = 10.0
 time = 0.0
-Ts = 0.001
+Ts = 0.01
 time_axis = np.arange(0, time_sim, Ts)
 
 
@@ -28,7 +28,7 @@ while time < time_sim:
 var = 0
 for i in scopes:
     var += 1
-    plt.plot(time_axis, i, label = "scope"+str(var))
+    plt.plot(time_axis, i[:-1], label = "scope"+str(var))
 
 plt.legend()
 plt.grid()

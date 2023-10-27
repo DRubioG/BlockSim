@@ -25,7 +25,7 @@ class ExportPython():
         """
         self.generate_file_constants(constants)
         self.generate_main(duration, Ts)
-        self.block_exe_file(nets, blocks, scopes)
+        self.block_exe_file(nets, blocks, scopes, constants)
         self.copy_func()
 
         
@@ -96,7 +96,7 @@ plt.show()"""
         file_main.close()
 
 
-    def block_exe_file(self, nets, blocks, scopes):
+    def block_exe_file(self, nets, blocks, scopes, constants):
         """
         This method creates the Python file
         """
@@ -104,7 +104,7 @@ plt.show()"""
         output = "from functions import *\nfrom " + self.name + "_constants import *\n\n"
         output += self.generate_init_func(nets, scopes, blocks) + "\n"
         output += self.generate_update_signal(nets) + "\n"
-        output += self.generate_block_exe(nets, blocks) + "\n"
+        output += self.generate_block_exe(nets, blocks, constants) + "\n"
         output += self.generate_scope(nets)
         file.write(output)
         file.close()
@@ -176,7 +176,7 @@ plt.show()"""
         return output
 
 
-    def generate_block_exe(self, nets, blocks):
+    def generate_block_exe(self, nets, blocks, constants):
         """
         This method generates the block exe function
         """
@@ -207,7 +207,7 @@ plt.show()"""
         if blocks:
             bck = Blocks()
             for block in blocks:
-                output += bck.writeBlocks(block, nets) + "\n\t"
+                output += bck.writeBlocks(block, nets, constants) + "\n\t"
 
         return output
 
@@ -236,4 +236,4 @@ plt.show()"""
 
 
     def copy_func(self):
-        shutil.copy("./Blocks/Python_blocks/functions.py", self.path)
+        shutil.copy("./Blocks/Python_functions/functions.py", self.path)
