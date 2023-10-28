@@ -17,7 +17,7 @@ float gain(float value, float gain){
 
 float convolution(float value, float* block_values, float *input, int length){
     float suma = 0;
-    for(int i=length; i>0; i--){
+    for(int i=length-1; i>=0; i--){
         input[i] = input[i-1];
     }
     input[0] = value;

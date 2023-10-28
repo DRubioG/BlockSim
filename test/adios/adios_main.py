@@ -32,4 +32,5 @@ for i in scopes:
 
 plt.legend()
 plt.grid()
+plt.title("Python simulation")
 plt.show()
