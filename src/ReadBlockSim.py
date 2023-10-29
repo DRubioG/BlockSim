@@ -132,6 +132,9 @@ class ReadBlockSim():
             inputs = int(block[2][7:])
             values.append(self.split_values(block[3][6:]))
             output.append([id, block_type, inputs, values[0]])
+        elif block_type == "gain":
+            values=self.split_values(block[2][6:])
+            output.append([id, block_type, values])
             
         return output
     

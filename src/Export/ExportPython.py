@@ -85,7 +85,7 @@ while time < time_sim:
 var = 0
 for i in scopes:
     var += 1
-    plt.plot(time_axis, i[:-1], label = "scope"+str(var))
+    plt.plot(time_axis, i[:-1], label = "net"+str(var))
 
 plt.legend()
 plt.grid()

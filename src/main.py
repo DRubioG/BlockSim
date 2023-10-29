@@ -4,6 +4,6 @@ from BlockSim import *
 
 if __name__=="__main__":
 
-    arg = "../test/adios.bsim"
+    arg = "../test/control_loop.bsim"
 
-    bsim = BlockSim(arg, "C")
+    bsim = BlockSim(arg, "Python")

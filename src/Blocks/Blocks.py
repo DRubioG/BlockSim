@@ -1,6 +1,7 @@
 from Blocks.Blocks_functions.step import *
 from Blocks.Blocks_functions.add import *
 from Blocks.Blocks_functions.convolution import *
+from Blocks.Blocks_functions.gain import *
 
 
 class Blocks():
@@ -30,6 +31,10 @@ class Blocks():
         elif block[1] == "tfs":
             output += conv(block, nets, self.cont, constants, self.type_blocks)
             self.cont += 1
+
+# GAIN: this conditional creates the gain function
+        elif block[1] == "gain":
+            output += gain(block, nets, self.type_blocks)
     
         return output
     
