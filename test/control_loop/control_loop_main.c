@@ -3,7 +3,7 @@
 
 int main(){
     float time_counter = 0.0;
-    float time_incr = 0.01;
+    float time_incr = 0.1;
 
     while(1){
         net_update();

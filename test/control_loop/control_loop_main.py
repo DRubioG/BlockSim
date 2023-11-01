@@ -2,9 +2,9 @@ import numpy as np
 from control_loop_functions import *
 import matplotlib.pyplot as plt
 
-time_sim = 4.0
+time_sim = 40.0
 time = 0.0
-Ts = 0.01
+Ts = 0.1
 time_axis = np.arange(0, time_sim, Ts)
 
 
@@ -27,8 +27,8 @@ while time < time_sim:
 
 var = 0
 for i in scopes:
-    plt.plot(time_axis, i[:-1], label = "net"+str(var))
     var += 1
+    plt.plot(time_axis, i[:-1], label = "net"+str(var))
 
 plt.legend()
 plt.grid()

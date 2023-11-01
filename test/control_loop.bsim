@@ -1,4 +1,4 @@
-Ts = 1e-2 ;
+Ts = 1e-1 ;
 Duration = 4 ;
 
 nets = {net0, net1, net2, net3, net4}
