@@ -25,7 +25,16 @@ void net_update(){
 	net4 = net4_ant;
 }
 
-void block_exe(){
+// void block_exe(){
+// 	net0_ant = step(1.0, time, 1.0);
+// 	net1_ant = add(net0, net4);
+// 	net3_ant = convolution(net2, block0, input0, 40);
+// 	net4_ant = convolution(net3, block1, input1, 40);
+// 	net2_ant = gain(net1, 5);
+// }
+
+
+void block_exe(float time){
 	net0_ant = step(1.0, time, 1.0);
 	net1_ant = add(net0, net4);
 	net3_ant = convolution(net2, block0, input0, 40);

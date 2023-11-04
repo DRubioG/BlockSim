@@ -8,12 +8,12 @@ int main(){
     while(1){
         net_update();
 
-        block_exe();
+        // block_exe();
 
         /* This part is only for an execution with blocks that requires time
         WARNING: variable overflow */
-        /*block_exe(time_counter);
-        time_counter += time_incr;*/
+        block_exe(time_counter);
+        time_counter += time_incr;
     }
 
     return 0;
